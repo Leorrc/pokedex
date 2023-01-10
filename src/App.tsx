@@ -1,27 +1,58 @@
-import { useFetch } from './hooks/useFetch'
 import pokedex from './images/pokedex.png'
 import './styles/global.css'
+import { useEffect, useState } from 'react'
 
-type Repository = {
-  full_name: string
-  description: string
+type PokeProps = {
+  name: string
+  sprite: string
+  id: number
 }
 
 export function App() {
-  const { data } = useFetch<Repository[]>('https:// pokeapi.co/api/v2/pokemon')
+  const [pokes, setPokes] = useState<PokeProps | null>(null)
+
+  const [pokeName, setPokeName] = useState('')
+
+  useEffect(() => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/1`)
+      .then(response => response.json())
+      .then(data => {
+        setPokes({
+          name: data.name,
+          sprite:
+            data.sprites.versions['generation-v']['black-white'].animated
+              .front_default,
+          id: data.id
+        })
+      })
+  }, [])
+
+  useEffect(() => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/1`)
+      .then(response => response.json())
+      .then(data => {
+        setPokes({
+          name: data.name,
+          sprite:
+            data.sprites.versions['generation-v']['black-white'].animated
+              .front_default,
+          id: data.id
+        })
+      })
+  }, [pokeName])
 
   return (
     <section className="w-screen h-screen bg-gradient-to-br from-indigo-400 flex flex-col items-center justify-center text-gray-100 p-2">
       <div className="relative">
         <img
           className="absolute bottom-[50%] left-[38%] h-[20%] -translate-x-[13%] "
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/6.gif"
+          src={pokes?.sprite}
           alt=""
         />
 
         <h1 className="absolute font-semibold text-gray-500 top-[55%] right-[25%] text-dina">
-          <span className="text-gray-500">6</span> -
-          <span className="capitalize text-gray-600"></span>
+          <span className="text-gray-500"> {pokes?.id} </span> -
+          <span className="capitalize text-gray-600"> {pokes?.name}</span>
         </h1>
 
         <form className="absolute w-[65%] top-2/3 left-[13.5%] ">
@@ -30,7 +61,10 @@ export function App() {
             type="search"
             placeholder="Name or Number"
             required
+            value={pokeName}
+            onChange={e => setPokeName(e.target.value)}
           />
+          <button>ENTER</button>
         </form>
 
         <div className="flex absolute bottom-[10%] left-[50%] w-[65%] gap-5 -translate-x-[57%] translate-y-0 justify-center">

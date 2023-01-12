@@ -1,6 +1,13 @@
 import pokedex from './images/pokedex.png'
 import './styles/global.css'
-import { useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  MouseEventHandler,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react'
+import axios from 'axios'
 
 type PokeProps = {
   name: string
@@ -10,11 +17,12 @@ type PokeProps = {
 
 export function App() {
   const [pokes, setPokes] = useState<PokeProps | null>(null)
+  const [pokeName, setPokeName] = useState<string | undefined>('')
 
-  const [pokeName, setPokeName] = useState('')
+  const [searhPokemon, setSearhPokemon] = useState(1)
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/1`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${searhPokemon}`)
       .then(response => response.json())
       .then(data => {
         setPokes({
@@ -25,10 +33,17 @@ export function App() {
           id: data.id
         })
       })
-  }, [])
+  }, [searhPokemon])
+
+  function handleClick() {
+    setSearhPokemon(searhPokemon + 1)
+  }
+  function handleClick2() {
+    setSearhPokemon(searhPokemon - 1)
+  }
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/1`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
       .then(response => response.json())
       .then(data => {
         setPokes({
@@ -55,7 +70,7 @@ export function App() {
           <span className="capitalize text-gray-600"> {pokes?.name}</span>
         </h1>
 
-        <form className="absolute w-[65%] top-2/3 left-[13.5%] ">
+        <form className="absolute w-[65%] top-2/3 left-[13.5%]">
           <input
             className="w-full p-[4%] outline-none font-semibold border-[2px] rounded border-b-gray-500 text-gray-700 text-dina2 shadow-shado"
             type="search"
@@ -64,14 +79,19 @@ export function App() {
             value={pokeName}
             onChange={e => setPokeName(e.target.value)}
           />
-          <button>ENTER</button>
         </form>
-
+        {/* onClick={() => setSearhPokemon(searhPokemon + 1)} */}
         <div className="flex absolute bottom-[10%] left-[50%] w-[65%] gap-5 -translate-x-[57%] translate-y-0 justify-center">
-          <button className="w-[50%] p-[4%] border-[2px] border-gray-800 rounded text-dina2 font-semibold text-white bg-[#444] shadow-shado2 active:text-[0.9rem] active:shadow-shado3">
+          <button
+            className="w-[50%] p-[4%] border-[2px] border-gray-800 rounded text-dina2 font-semibold text-white bg-[#444] shadow-shado2 active:text-[0.9rem] active:shadow-shado3"
+            onClick={handleClick2}
+          >
             &lt; Prev
           </button>
-          <button className="w-[50%] p-[4%] border-[2px] border-gray-800 rounded text-dina2 font-semibold text-white bg-[#444] shadow-shado2 active:text-[0.9rem] active:shadow-shado3">
+          <button
+            className="w-[50%] p-[4%] border-[2px] border-gray-800 rounded text-dina2 font-semibold text-white bg-[#444] shadow-shado2 active:text-[0.9rem] active:shadow-shado3"
+            onClick={handleClick}
+          >
             Next &gt;
           </button>
         </div>

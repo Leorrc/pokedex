@@ -19,10 +19,10 @@ export function App() {
   const [pokes, setPokes] = useState<PokeProps | null>(null)
   const [pokeName, setPokeName] = useState<string | undefined>('')
 
-  const [searhPokemon, setSearhPokemon] = useState(1)
+  const [searchPokemon, setSearchPokemon] = useState(1)
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${searhPokemon}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${searchPokemon}`)
       .then(response => response.json())
       .then(data => {
         setPokes({
@@ -32,14 +32,18 @@ export function App() {
               .front_default,
           id: data.id
         })
+        if (pokes) {
+        }
       })
-  }, [searhPokemon])
+  }, [searchPokemon])
 
   function handleClick() {
-    setSearhPokemon(searhPokemon + 1)
+    setSearchPokemon(searchPokemon + 1)
   }
   function handleClick2() {
-    setSearhPokemon(searhPokemon - 1)
+    if (searchPokemon > 1) {
+      setSearchPokemon(searchPokemon - 1)
+    }
   }
 
   useEffect(() => {

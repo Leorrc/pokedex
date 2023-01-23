@@ -19,3 +19,41 @@ a {
 html {
   scroll-behavior: smooth;
 }
+
+.screen {
+  background: linear-gradient(
+    14deg,
+    rgb(165, 205, 83) 60%,
+    rgb(193, 217, 144) 65%
+  );
+  padding: 5px;
+  border-radius: 3px;
+  font-family: 'VT323';
+  border: inset #879a65 3px;
+}
+
+.stats {
+  width: 31.2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px;
+  flex: 1;
+  padding: 0.5rem;
+}
+.stat-line {
+  font-size: 15px;
+  text-transform: capitalize;
+}
+
+.shiny {
+  background: linear-gradient(
+    14deg,
+    #bf8823 10%,
+    #ffee90 25%,
+    #e6a617 47%,
+    #ffee90 73%,
+    #fff6c8 74%,
+    #ffee90 80%
+  );
+}

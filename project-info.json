@@ -1,7 +1,7 @@
 {
     "image": "https://raw.githubusercontent.com/leorrc/pokedex/master/.github/screenshot-1.png",
     "name": "Pokedex Master",
-    "description": "Projeto criado para a minha prática com api's e o back-end, gosto de pokemon então foi muito legal estudar e trabalhar nesse projeto, usei ReactJS, ViteJS, Typescript, TailwindCSS e Axios.",
+    "description": "Projeto criado para práticar o consumo de uma api.",
     "live": "https://pokedex-leorrc.vercel.app/",
     "git": "https://github.com/Leorrc/pokedex"
 }
